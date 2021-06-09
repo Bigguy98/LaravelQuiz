@@ -32,6 +32,29 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="col-md-6 mt-4">
+                    <h3 class="page-title">Interviews:</h3>
+                    @foreach($interviews as $topic)
+                        <div class="card">
+                            <div class="card-body mb-2">
+                                <h5 class="card-title">{{$topic->title}}</h5>
+                                <a href="{{route('topics.show', $topic->id)}}" class="inline_block btn btn-primary">Start Interview</a>
+                                @if(Auth::user())
+                                    @if(Auth::user()->role == 'admin')
+                                        <a href="{{route('topics.edit', $topic->id)}}"
+                                           class="inline_block btn btn-warning">Edit</a>
+                                        <form class="inline_block" action="{{route('topics.destroy', $topic->id)}}"
+                                              method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-xs btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

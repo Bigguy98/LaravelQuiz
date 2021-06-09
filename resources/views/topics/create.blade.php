@@ -20,6 +20,18 @@
                     <div class="form-group">
                         <input type="text" name="title" class="form-control" placeholder="Topic name">
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" id="quiz" value="quiz" checked>
+                        <label class="form-check-label" for="quiz">
+                            Quiz
+                        </label>
+                    </div>
+                    <div class="form-check"> 
+                        <input class="form-check-input" type="radio" name="type" id="interview" value="interview">
+                        <label class="form-check-label" for="interview">
+                            Interview
+                        </label>
+                    </div>
                     <input type="submit" name="submit" id="submit" class="btn btn-info" value="Create Topic"/>
                 </form>
             </div>

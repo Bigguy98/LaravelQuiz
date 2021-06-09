@@ -26,9 +26,9 @@ class TopicController extends Controller
     {
         //
 
-        $topics = Topic::all();
-
-        return view('topics.index', ['topics' => $topics]);
+        $topics = Topic::where('type','quiz')->get();
+        $interviews = Topic::where('type','interview')->get();
+        return view('topics.index', ['topics' => $topics,'interviews' => $interviews]);
     }
 
     /**
@@ -40,9 +40,9 @@ class TopicController extends Controller
     {
         //
 
-        $topics = Topic::all();
-
-        return view('topics.create', ['topics'=>$topics]);
+        $topics = Topic::where('type','quiz')->get();
+        $interviews = Topic::where('type','interview')->get();
+        return view('topics.create', ['topics' => $topics,'interviews' => $interviews]);
     }
 
     /**
@@ -54,9 +54,9 @@ class TopicController extends Controller
     public function store(StoreTopicRequest $request)
     {
         //
-
         $topic = new Topic();
         $topic->title = $request->input('title');
+        $topic->type = $request->input('type');
         $topic->save();
 
         return redirect(route('topics.index'));
