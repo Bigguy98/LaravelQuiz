@@ -98,7 +98,7 @@ body {
 .checkbox-main {
   display: block;
   position: relative;
-  padding-left: 35px;
+  padding-left: 30px;
   margin-bottom: 11px;
   cursor: pointer;
   -webkit-user-select: none;
@@ -161,4 +161,9 @@ body {
 
 .table-white{
     background: white;
+}
+
+.options-inline{
+    display: flex;
+    justify-content: space-between;
 }

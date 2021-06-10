@@ -79,6 +79,70 @@ class QuestionController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeInterview(Request $request)
+    {
+
+        //
+        $topicID = $request->input('topic');
+        $questionText = $request->input('question');
+        $type = $request->input('type');
+
+        $question = new Question();
+        $question->topic_id = $topicID;
+        $question->question_text = $questionText;
+        $question->save();
+
+        $questionToAdd = Question::latest()->first();;
+        $questionID = $questionToAdd->id;
+
+        if ($type != "custom") {
+
+            if ($type == "rate5") {
+                $optionArray = [
+                    1 => 'Never heard',
+                    2 => 'Heard something',
+                    3 => 'Rarely use',
+                    4 => 'Regularly use',
+                    5 => 'Expert',
+                ];
+            }
+
+            if ($type == "rate10") {
+                $optionArray = [
+                    1 => '1',
+                    2 => '2',
+                    3 => '3',
+                    4 => '4',
+                    5 => '5',
+                    6 => '6',
+                    7 => '7',
+                    8 => '8',
+                    9 => '9',
+                    10 => '10',
+                ];
+            }
+
+            if ($type == "options") {
+                $optionArray = $request->input('options');
+            }
+
+            foreach ($optionArray as $index => $opt) {
+                $option = new Options();
+                $option->question_id = $questionID;
+                $option->option = $opt;
+                $option->save();
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

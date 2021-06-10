@@ -30,15 +30,18 @@
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
                                     @endif
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
-                                    @foreach($question->options as $option)
+                                    <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif">
+                                    @forelse($question->options as $option)
                                         <div class="option">
                                             <label class="checkbox-main">{{$option->option}}
                                               <input type="checkbox" name="option[{{$question->id}}][{{$option->id}}]" value="{{$option->correct}}">
                                               <span class="checkmark"></span>
                                             </label>
-
                                         </div>
-                                    @endforeach
+                                    @empty
+                                    <textarea class="form-control" name="option[{{$question->id}}]" ></textarea>
+                                    @endforelse
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
