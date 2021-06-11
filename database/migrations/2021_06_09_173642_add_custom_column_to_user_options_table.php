@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAnswerColumnToQuestionsTable extends Migration
+class AddCustomColumnToUserOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAnswerColumnToQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->text('answer')->after('question_text')->nullable();
+        Schema::table('user_options', function (Blueprint $table) {
+            $table->text('custom')->after('topic_id')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddAnswerColumnToQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('answer');
+        Schema::table('user_options', function (Blueprint $table) {
+            $table->dropColumn('custom');
         });
     }
 }

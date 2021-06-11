@@ -13,7 +13,7 @@ class Result extends Model
     public function topic(){
         return $this->belongsTo('App\Topic');
     }
-
+    
     public function user() {
         return $this->hasOne('App\User', 'id', 'user_id');
     }

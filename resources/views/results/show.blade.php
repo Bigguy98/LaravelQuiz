@@ -10,6 +10,10 @@
                     <div class="col-md-12 mt-4">
                         <table class="table table-bordered table-striped table-white">
                             <tr>
+                                <th>Quiz/Interview</th>
+                                <td>{{$result->topic->title}}</td>
+                            </tr>
+                            <tr>
                                 <th>User</th>
                                 <td>{{$result->user->name}} ({{$result->user->email}})</td>
                             </tr>
@@ -18,8 +22,12 @@
                                 <td>{{$result->created_at}}</td>
                             </tr>
                             <tr>
-                                <th>Score</th>
+                                <th>Result</th>
+                                @if($result->topic->type == "quiz")
                                 <td>{{$result->correct_answers}}/{{$result->questions_count}}</td>
+                                @else
+                                <td>Passed</td>
+                                @endif
                             </tr>
                         </table>
                         <table class="table table-bordered table-striped table-white">
@@ -34,24 +42,31 @@
                                     <td>Options</td>
                                     <td>
                                         <ul>
+                                            @foreach($result->options as $user_option)
+                                                @if($user_option->question_id == $question->id)
+                                                    {{$user_option->custom}}
+                                                @endif
+                                            @endforeach
                                             @foreach($question->options as $option)
                                                 @if($option->correct == 1)
-                                                    <li style="font-weight: bold;">{{$option->option}}
-                                                        <em>(correct answer)</em>
+                                                    <li style="font-weight: bold;" class="green">
+                                                        {{$option->option}}
+                                                        <c>(correct answer)</c>
                                                         @foreach($result->options as $user_option)
                                                             @if($user_option->option_id == $option->id)
-                                                                <em>(your answer)</em>
+                                                                <c>(your answer)</c>
                                                             @endif
                                                         @endforeach
                                                     </li>
                                                 @else
-                                                    <li>
-                                                        {{$option->option}}
-                                                        @foreach($result->options as $user_option)
-                                                            @if($user_option->option_id == $option->id)
-                                                                <em style="font-weight: bold;">(your answer)</em>
-                                                            @endif
-                                                        @endforeach
+                                                    @php $class = ""; $answer = ""; @endphp
+                                                    @foreach($result->options as $user_option)
+                                                        @if($user_option->option_id == $option->id)
+                                                            @php $class = $result->topic->type == "quiz" ? "red" : "green"; $answer = "<b>(your answer)</b>"; @endphp
+                                                        @endif
+                                                    @endforeach
+                                                    <li class="{{$class}}">
+                                                        {{$option->option}} {!!$answer!!}
                                                     </li>
                                                 @endif
                                             @endforeach

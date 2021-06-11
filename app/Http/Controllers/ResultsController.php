@@ -59,11 +59,13 @@ class ResultsController extends Controller
             foreach ($questions as $key => $value) {
                 $question = Question::find($key);
                 $userCorrectAnswers = 0;
-                foreach ($value as $answerKey => $answerValue) {
-                    if ($answerValue == 1) {
-                        $userCorrectAnswers++;
-                    } else {
-                        $userCorrectAnswers--;
+                if(is_array($value)){
+                    foreach ($value as $answerKey => $answerValue) {
+                        if ($answerValue == 1) {
+                            $userCorrectAnswers++;
+                        } else {
+                            $userCorrectAnswers--;
+                        }
                     }
                 }
                 if ($question->correctOptionsCount() == $userCorrectAnswers) {
@@ -75,16 +77,27 @@ class ResultsController extends Controller
             $result->topic_id = $request->input('topic_id');
             $result->correct_answers = $score;
             $result->questions_count = count($request->input('question_id'));
+
             $result->save();
 
             foreach ($questions as $key => $value) {
-                foreach ($value as $answerKey => $answerValue) {
+                if(is_array($value)){
+                    foreach ($value as $answerKey => $answerValue) {
+                        $userOption = new UserOption();
+                        $result->user_id = Auth::user()->id;
+                        $userOption->result_id = $result->id;
+                        $userOption->question_id = $key;
+                        $userOption->topic_id = $request->input('topic_id');
+                        $userOption->option_id = $answerKey;
+                        $userOption->save();
+                    }
+                }else{
                     $userOption = new UserOption();
                     $result->user_id = Auth::user()->id;
                     $userOption->result_id = $result->id;
                     $userOption->question_id = $key;
                     $userOption->topic_id = $request->input('topic_id');
-                    $userOption->option_id = $answerKey;
+                    $userOption->custom = $value;
                     $userOption->save();
                 }
             }

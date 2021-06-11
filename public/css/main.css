@@ -167,3 +167,11 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+.green {
+    color: green;
+}
+
+.red{
+    color: red;
+}

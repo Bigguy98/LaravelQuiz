@@ -18,6 +18,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>User</th>
+                                                    <th>Quiz/Interview</th>
                                                     <th>Date</th>
                                                     <th>Result</th>
                                                     <th>&nbsp;</th>
@@ -28,8 +29,13 @@
                                                 @foreach($allResults as $result)
                                                     <tr>
                                                         <td>{{$result->user->name}} ({{$result->user->email}})</td>
+                                                        <td>{{$result->topic->title}}</td>
                                                         <td>{{$result->created_at}}</td>
+                                                        @if($result->topic->type == "quiz")
                                                         <td>{{$result->correct_answers}}/{{$result->questions_count}}</td>
+                                                        @else
+                                                        <td>Passed</td>
+                                                        @endif
                                                         <td>
                                                             <a href="{{route('results.show', $result->id)}}"
                                                                class="btn btn-xs btn-primary">View</a>
@@ -45,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
         </div>
     </div>
