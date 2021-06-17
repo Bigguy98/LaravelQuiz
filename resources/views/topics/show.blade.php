@@ -19,6 +19,7 @@
                     </div>
                     <form action="{{route('results.store')}}" method="post">
                         @csrf
+                        <input type="hidden" name="started_at" value="{{date('Y-m-d H:i:s')}}">
                         <div>
                             <input type="hidden" name="topic_id" value="{{$topic->id}}">
                             @foreach($topic->questions as $question )

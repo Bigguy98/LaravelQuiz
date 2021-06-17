@@ -12,6 +12,12 @@
                             <div class="row">
                                 <div class="col-md-12 mt-4">
                                     <h3 class="page-title">All Results</h3>
+                                    <select class="filter form-control">
+                                        <option value="" @if(!$selected) selected @endif >All</option>
+                                        @foreach($users as $user)
+                                        <option value="{{$user->email}}" @if(isset($selected) && $selected == $user->email) selected @endif >{{$user->name}} ({{$user->email}})</option>
+                                        @endforeach
+                                    </select>
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <table class="table table-bordered table-striped datatable table-white">
@@ -19,6 +25,7 @@
                                                 <tr>
                                                     <th>User</th>
                                                     <th>Quiz/Interview</th>
+                                                    <th>Pass time</th>
                                                     <th>Date</th>
                                                     <th>Result</th>
                                                     <th>&nbsp;</th>
@@ -30,6 +37,7 @@
                                                     <tr>
                                                         <td>{{$result->user->name}} ({{$result->user->email}})</td>
                                                         <td>{{$result->topic->title}}</td>
+                                                        <td>@if(!empty($result->started_at)) {{pretty_date($result->started_at,$result->created_at)}} @else n/a @endif</td>
                                                         <td>{{$result->created_at}}</td>
                                                         @if($result->topic->type == "quiz")
                                                         <td>{{$result->correct_answers}}/{{$result->questions_count}}</td>
@@ -65,4 +73,16 @@
     </div>
     </div>
     </div>
+
+    <script type="text/javascript">
+        $('.filter').change(function(){
+            email = $('.filter option:selected').val();
+            if(email != ''){
+                param = "?email="+email;
+            }else{
+                param = '';
+            }
+            window.location.replace("{{url()->current()}}" + param);
+        });
+    </script>
 @endsection

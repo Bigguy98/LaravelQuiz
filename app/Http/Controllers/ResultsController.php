@@ -23,13 +23,24 @@ class ResultsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if(isset($request->email)){
+            $user = User::where('email',$request->email)->first();
+            if($user){
+                $allResults = Result::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+                $selected = $request->email;
+            }else{
+                abort(404);
+            }
+        }else{
+            $allResults = Result::orderBy('created_at', 'desc')->get();
+            $selected = null;
+        }
+        $users = User::where('role','user')->has('results')->orderBy('id','DESC')->get();
 
-        $allResults = Result::orderBy('created_at', 'desc')->get();
-
-        return view('results.index', ['allResults' => $allResults]);
+        return view('results.index', ['allResults' => $allResults, 'selected' => $selected, 'users' => $users]);
 
     }
 
@@ -77,7 +88,7 @@ class ResultsController extends Controller
             $result->topic_id = $request->input('topic_id');
             $result->correct_answers = $score;
             $result->questions_count = count($request->input('question_id'));
-
+            $result->started_at = $request->started_at;
             $result->save();
 
             foreach ($questions as $key => $value) {

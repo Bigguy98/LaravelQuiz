@@ -22,6 +22,10 @@
                                 <td>{{$result->created_at}}</td>
                             </tr>
                             <tr>
+                                <th>Pass time</th>
+                                <td>@if(!empty($result->started_at)) {{pretty_date($result->started_at,$result->created_at)}} @else n/a @endif</td>
+                            </tr>
+                            <tr>
                                 <th>Result</th>
                                 @if($result->topic->type == "quiz")
                                 <td>{{$result->correct_answers}}/{{$result->questions_count}}</td>
@@ -49,14 +53,14 @@
                                             @endforeach
                                             @foreach($question->options as $option)
                                                 @if($option->correct == 1)
-                                                    <li style="font-weight: bold;" class="green">
-                                                        {{$option->option}}
-                                                        <c>(correct answer)</c>
-                                                        @foreach($result->options as $user_option)
-                                                            @if($user_option->option_id == $option->id)
-                                                                <c>(your answer)</c>
-                                                            @endif
-                                                        @endforeach
+                                                    @php $answer = ""; $class = "red"; @endphp
+                                                    @foreach($result->options as $user_option)
+                                                        @if($user_option->option_id == $option->id)
+                                                            @php $answer = "<b>(your answer)</b>"; $class = "green"; @endphp 
+                                                        @endif
+                                                    @endforeach
+                                                    <li style="font-weight: bold;" class="{{$class}}">
+                                                        {{$option->option}} <b>(correct answer)</b> {!!$answer;!!}
                                                     </li>
                                                 @else
                                                     @php $class = ""; $answer = ""; @endphp
