@@ -13,7 +13,7 @@
                 </div>
             @endif
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-8 py-8">
                     <div class="question-wrapper">
                         <h2>{{$topic->title}}</h2>
                     </div>
@@ -34,7 +34,7 @@
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif">
                                     @forelse($question->options as $option)
                                         <div class="option">
-                                            <label class="checkbox-main">{{$option->option}}
+                                            <label class="checkbox-main" id="option-for-{{$question->id}}">{{$option->option}}
                                               <input type="checkbox" name="option[{{$question->id}}][{{$option->id}}]" value="{{$option->correct}}">
                                               <span class="checkmark"></span>
                                             </label>
@@ -54,18 +54,22 @@
             <h1>No Topic</h1>
         @endif
     </div>
-    <script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    <script>
+        $('.options-inline .checkbox-main').on('click',function(){
+            $('.options-inline .checkbox-main#'+$(this).prop('id')).not(this).find('input').prop('checked', false);  
+        });
 
-    ym(71948281, "init", {
-        childIframe:true,
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true,
-        trackHash:true
-    });
-</script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(71948281, "init", {
+            childIframe:true,
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true,
+            trackHash:true
+        });
+    </script>
 @endsection
