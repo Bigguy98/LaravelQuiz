@@ -25,9 +25,9 @@
                                                 <tr>
                                                     <th>User</th>
                                                     <th>Quiz/Interview</th>
-                                                    <th>Pass time</th>
+                                                    <th>Passed</th>
                                                     <th>Date</th>
-                                                    <th>Result</th>
+                                                    <th style="min-width:100px;">Result</th>
                                                     <th>&nbsp;</th>
                                                 </tr>
                                                 </thead>
@@ -40,7 +40,13 @@
                                                         <td>@if(!empty($result->started_at)) {{pretty_date($result->started_at,$result->created_at)}} @else n/a @endif</td>
                                                         <td>{{$result->created_at}}</td>
                                                         @if($result->topic->type == "quiz")
-                                                        <td>{{$result->correct_answers}}/{{$result->questions_count}}</td>
+                                                        <td>
+                                                            <div class="progress">
+                                                            <div class="progress-bar progress-bar-{{prgressClass($result->correct_answers,$result->questions_count)}}" role="progressbar" aria-valuenow="{{percentage($result->correct_answers,$result->questions_count)}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage($result->correct_answers,$result->questions_count)}}%">
+                                                            </div>
+                                                            <span class="progress-completed">{{percentage($result->correct_answers,$result->questions_count)}}%</span>
+                                                            </div>
+                                                        </td>
                                                         @else
                                                         <td>Passed</td>
                                                         @endif
