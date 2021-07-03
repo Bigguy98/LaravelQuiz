@@ -22,37 +22,34 @@
                                         <div class="panel-body">
                                             <table class="table table-bordered table-striped datatable table-white">
                                                 <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Quiz/Interview</th>
-                                                    <th>Passed</th>
-                                                    <th>Date</th>
-                                                    <th style="min-width:100px;">Result</th>
-                                                    <th>&nbsp;</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th>User</th>
+                                                        <th>Quiz/Interview</th>
+                                                        <th>Passed</th>
+                                                        <th>Date</th>
+                                                        <th style="min-width:100px;">Result</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
                                                 </thead>
-
                                                 <tbody>
                                                 @foreach($allResults as $result)
                                                     <tr>
                                                         <td>{{$result->user->name}} ({{$result->user->email}})</td>
                                                         <td>{{$result->topic->title}}</td>
-                                                        <td>@if(!empty($result->started_at)) {{pretty_date($result->started_at,$result->created_at)}} @else n/a @endif</td>
+                                                        <td class="@if(!empty($result->started_at)) {{timeClass($result->started_at,$result->created_at,$result->questions_count)}} @endif" >@if(!empty($result->started_at)) {{pretty_date($result->started_at,$result->created_at)}} @else n/a @endif</td>
                                                         <td>{{$result->created_at}}</td>
                                                         @if($result->topic->type == "quiz")
                                                         <td>
                                                             <div class="progress">
-                                                            <div class="progress-bar progress-bar-{{prgressClass($result->correct_answers,$result->questions_count)}}" role="progressbar" aria-valuenow="{{percentage($result->correct_answers,$result->questions_count)}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage($result->correct_answers,$result->questions_count)}}%">
-                                                            </div>
-                                                            <span class="progress-completed">{{percentage($result->correct_answers,$result->questions_count)}}%</span>
+                                                                <div class="progress-bar progress-bar-{{progressClass($result->correct_answers,$result->questions_count)}}" role="progressbar" aria-valuenow="{{percentage($result->correct_answers,$result->questions_count)}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage($result->correct_answers,$result->questions_count)}}%"></div>
+                                                                <span class="progress-completed">{{percentage($result->correct_answers,$result->questions_count)}}%</span>
                                                             </div>
                                                         </td>
                                                         @else
                                                         <td>Passed</td>
                                                         @endif
                                                         <td>
-                                                            <a href="{{route('results.show', $result->id)}}"
-                                                               class="btn btn-xs btn-primary">View</a>
+                                                            <a href="{{route('results.show', $result->id)}}" class="btn btn-xs btn-primary">View</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -66,7 +63,6 @@
                     </div>
                 </div>
             </div> 
-
         </div>
     </div>
     <!-- /#page-content-wrapper -->

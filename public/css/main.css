@@ -176,6 +176,11 @@ body {
     color: red;
 }
 
+.success{color:#5cb85c}
+.info{color:#5bc0de}
+.warning{color:#f0ad4e}
+.danger{color:#d9534f}
+
 .progress-bar-success{background-color:#5cb85c}
 .progress-bar-info{background-color:#5bc0de}
 .progress-bar-warning{background-color:#f0ad4e}

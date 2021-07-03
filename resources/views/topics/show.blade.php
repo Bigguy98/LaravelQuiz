@@ -31,7 +31,7 @@
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
                                     @endif
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
-                                    <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif">
+                                    <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
                                     @forelse($question->options as $option)
                                         <div class="option">
                                             <label class="checkbox-main" id="option-for-{{$question->id}}">{{$option->option}}
@@ -40,7 +40,7 @@
                                             </label>
                                         </div>
                                     @empty
-                                    <textarea class="form-control" name="option[{{$question->id}}]" ></textarea>
+                                     <textarea class="form-control" name="option[{{$question->id}}]" ></textarea>
                                     @endforelse
                                     </div>
                                 </div>
@@ -55,8 +55,8 @@
         @endif
     </div>
     <script>
-        $('.options-inline .checkbox-main').on('click',function(){
-            $('.options-inline .checkbox-main#'+$(this).prop('id')).not(this).find('input').prop('checked', false);  
+        $('.options-inline .checkbox-main, .single .checkbox-main').on('click',function(){
+            $('.options-inline .checkbox-main#'+$(this).prop('id')+', .single .checkbox-main#'+$(this).prop('id')).not(this).find('input').prop('checked', false);  
         });
 
         (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
