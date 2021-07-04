@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <p id="countdown">20:00</p>
     <div class="container">
         @if($topic)
             @if ($errors->any())
@@ -55,6 +56,29 @@
         @endif
     </div>
     <script>
+       function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.text(minutes + ":" + seconds);
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        jQuery(function ($) {
+            var duration = 60 * 20 - 1;
+            var display = $('#countdown');
+            startTimer(duration, display);
+        });
+
         $('.options-inline .checkbox-main, .single .checkbox-main').on('click',function(){
             $('.options-inline .checkbox-main#'+$(this).prop('id')+', .single .checkbox-main#'+$(this).prop('id')).not(this).find('input').prop('checked', false);  
         });

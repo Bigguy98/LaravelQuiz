@@ -207,3 +207,11 @@ body {
     font-weight: 800;
     padding: 3px 10px 2px;
 }
+
+#countdown{
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    margin-top: 8px;
+    color: #888;
+}
