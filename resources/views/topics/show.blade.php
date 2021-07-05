@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <p id="countdown">20:00</p>
+    <p id="countdown">Calculation</p>
     <div class="container">
         @if($topic)
             @if ($errors->any())
@@ -74,7 +74,7 @@
         }
 
         jQuery(function ($) {
-            var duration = 60 * 20 - 1;
+            var duration = 30 * {{count($topic->questions)}} + 120;
             var display = $('#countdown');
             startTimer(duration, display);
         });
