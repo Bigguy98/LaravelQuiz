@@ -6,6 +6,7 @@ use App\Http\Requests\StoreResultRequest;
 use App\Question;
 use App\Result;
 use App\User;
+use App\Topic;
 use App\UserOption;
 use function foo\func;
 use Illuminate\Http\Request;
@@ -25,22 +26,31 @@ class ResultsController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        $user_selected = null;
+        $quiz_selected = null;
         if(isset($request->email)){
             $user = User::where('email',$request->email)->first();
             if($user){
                 $allResults = Result::where('user_id', $user->id)->orderBy('user_id', 'desc')->orderBy('created_at', 'desc')->get();
-                $selected = $request->email;
+                $user_selected = $request->email;
+            }else{
+                abort(404);
+            }
+        }elseif(isset($request->quiz)){
+            $quiz = Topic::where('id',$request->quiz)->first();
+            if($quiz){
+                $allResults = Result::where('topic_id', $quiz->id)->orderBy('user_id', 'desc')->orderBy('created_at', 'desc')->get();
+                $quiz_selected = $request->quiz;
             }else{
                 abort(404);
             }
         }else{
             $allResults = Result::orderBy('user_id', 'desc')->orderBy('created_at', 'desc')->get();
-            $selected = null;
         }
         $users = User::where('role','user')->has('results')->orderBy('id','DESC')->get();
+        $tests = Topic::all();
 
-        return view('results.index', ['allResults' => $allResults, 'selected' => $selected, 'users' => $users]);
+        return view('results.index', ['allResults' => $allResults, 'user_selected' => $user_selected, 'quiz_selected' => $quiz_selected, 'users' => $users, 'tests' => $tests]);
 
     }
 

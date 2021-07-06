@@ -12,12 +12,22 @@
                             <div class="row">
                                 <div class="col-md-12 mt-4">
                                     <h3 class="page-title">All Results</h3>
-                                    <select class="filter form-control">
-                                        <option value="" @if(!$selected) selected @endif >All</option>
-                                        @foreach($users as $user)
-                                        <option value="{{$user->email}}" @if(isset($selected) && $selected == $user->email) selected @endif >{{$user->name}} ({{$user->email}})</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="container">
+                                        <div class="row">
+                                            <select class="user-filter form-control col-md-6">
+                                                <option value="" @if(!$user_selected) selected @endif >All Users</option>
+                                                @foreach($users as $user)
+                                                <option value="{{$user->email}}" @if(isset($user_selected) && $user_selected == $user->email) selected @endif >{{$user->name}} ({{$user->email}})</option>
+                                                @endforeach
+                                            </select>
+                                            <select class="quiz-filter form-control col-md-6">
+                                                <option value="" @if(!$quiz_selected) selected @endif >All Quizzws/Interviews</option>
+                                                @foreach($tests as $test)
+                                                <option value="{{$test->id}}" @if(isset($quiz_selected) && $quiz_selected == $test->id) selected @endif >{{$test->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <table class="table table-bordered table-striped datatable table-white">
@@ -77,10 +87,20 @@
     </div>
 
     <script type="text/javascript">
-        $('.filter').change(function(){
-            email = $('.filter option:selected').val();
+        $('.user-filter').change(function(){
+            email = $('.user-filter option:selected').val();
             if(email != ''){
                 param = "?email="+email;
+            }else{
+                param = '';
+            }
+            window.location.replace("{{url()->current()}}" + param);
+        });
+
+        $('.quiz-filter').change(function(){
+            id = $('.quiz-filter option:selected').val();
+            if(id != ''){
+                param = "?quiz="+id;
             }else{
                 param = '';
             }
