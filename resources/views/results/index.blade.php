@@ -21,7 +21,7 @@
                                                 @endforeach
                                             </select>
                                             <select class="quiz-filter form-control col-md-6">
-                                                <option value="" @if(!$quiz_selected) selected @endif >All Quizzws/Interviews</option>
+                                                <option value="" @if(!$quiz_selected) selected @endif >All Forms</option>
                                                 @foreach($tests as $test)
                                                 <option value="{{$test->id}}" @if(isset($quiz_selected) && $quiz_selected == $test->id) selected @endif >{{$test->title}}</option>
                                                 @endforeach
