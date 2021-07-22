@@ -160,7 +160,7 @@
                     '<td>' +
                     '</td>' +
                     '<td>' +
-                    '<ainput type="text" name="options[]" required placeholder="New option" class="form-control question_list" />' +
+                    '<input type="text" name="options[]" required placeholder="New option" class="form-control question_list" />' +
                     '</td>' +
                     '<td>' +
                     '<input type="checkbox" name="correct[]" value="' + n + '" class="form-control question_list" />' +
