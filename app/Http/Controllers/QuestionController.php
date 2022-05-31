@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
-use App\Options;
-use App\Question;
-use App\Topic;
+use App\Models\Options;
+use App\Models\Question;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller

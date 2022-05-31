@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateQuestionOptionsRequest;
-use App\Options;
-use App\Question;
+use App\Models\Options;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class QuestionsOptionsController extends Controller

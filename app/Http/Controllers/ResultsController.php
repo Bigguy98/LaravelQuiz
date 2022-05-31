@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreResultRequest;
-use App\Question;
-use App\Result;
-use App\User;
-use App\Topic;
-use App\UserOption;
-use function foo\func;
+use App\Models\Question;
+use App\Models\Result;
+use App\Models\User;
+use App\Models\Topic;
+use App\Models\UserOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

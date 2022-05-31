@@ -215,3 +215,18 @@ body {
     bottom: 0px;
     color: #888;
 }
+
+input[type="checkbox"]{
+    width: 20px;
+    outline: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.check-td, .button-td{
+    width: 1%;
+}
+
+.hidden{
+    display: none;
+}

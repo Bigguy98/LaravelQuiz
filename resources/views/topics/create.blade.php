@@ -53,24 +53,21 @@
                             </div>
                             <tr>
                                 <td>
-                                    <input type="text" name="question" placeholder="New question"
-                                           class="form-control question_list" required
-                                    />
-                                <td>
-                                    <input type="text" name="options[]" placeholder="New option"
-                                           class="form-control options_list" required
-                                    />
+                                    <input type="text" name="question" placeholder="New question" class="form-control question_list" required />
+                                </td>
+                                <td class="hidden">
+                                    <input type="text" name="image" placeholder="Image in base64 format" class="form-control question_list" />
+                                </td>
+                                <td class="hidden">
+                                    <input type="text" name="code" placeholder="Add code here" class="form-control question_list" />
                                 </td>
                                 <td>
-                                    <input type="checkbox"
-                                           name="correct[]"
-                                           value="1"
-                                           placeholder="Correct"
-                                           class="form-control"
-                                    />
+                                    <input type="text" name="options[]" placeholder="New option" class="form-control options_list" required />
                                 </td>
+                                <td class="check-td">
+                                    <input type="checkbox" name="correct[]" value="1" placeholder="Correct" class="form-control" />
                                 </td>
-                                <td>
+                                <td class="button-td">
                                     <button type="button" name="addAnswer" id="addAnswer" class="btn btn-success mb-2">
                                         Add Answer
                                     </button>
@@ -78,6 +75,7 @@
                             </tr>
                         </table>
                         <input type="submit" name="addQuestion" id="addQuestion" class="btn btn-success mb-2 mr-2" value="Add Question"/>
+                        <button type="button" id="showExtra" class="btn btn-info mb-2 mr-2" >Show Extra options</button>
                     </div>
                 </form>
             </div>
@@ -159,13 +157,17 @@
                     '<tr id="row' + n + '" class="dynamic-added">' +
                     '<td>' +
                     '</td>' +
+                    '<td class="hidden">' +
+                    '</td>' +
+                    '<td class="hidden">' +
+                    '</td>' +
                     '<td>' +
                     '<input type="text" name="options[]" required placeholder="New option" class="form-control question_list" />' +
                     '</td>' +
-                    '<td>' +
+                    '<td class="check-td">' +
                     '<input type="checkbox" name="correct[]" value="' + n + '" class="form-control question_list" />' +
                     '</td>' +
-                    '<td>' +
+                    '<td class="button-td">' +
                     '<button type="button" name="remove" id="' + n + '" class="btn btn-danger btn_remove">X</button>' +
                     '</td>' +
                     '</tr>');
@@ -187,6 +189,10 @@
             $(document).on('click', '.btn_remove', function () {
                 var button_id = $(this).attr("id");
                 $('#row' + button_id + '').remove();
+            });
+
+            $(document).on('click', '#showExtra', function () {
+                 $('td').removeClass('hidden');
             });
 
         });
