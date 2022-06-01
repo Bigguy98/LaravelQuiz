@@ -51,12 +51,20 @@ class QuestionController extends Controller
         //
         $topicID = $request->input('topic');
         $questionText = $request->input('question');
+        $image = $request->input('image');
+        $front = $request->input('front');        
+        $test = $request->input('test');
+        $config = $request->input('config');
         $optionArray = $request->input('options');
         $correctOptions = $request->input('correct');
 
         $question = new Question();
         $question->topic_id = $topicID;
         $question->question_text = $questionText;
+        $question->image = $image;
+        $question->front_code = $front;
+        $question->test_code = $test;
+        $question->config_code = $config;
         $question->save();
 
         $questionToAdd = Question::latest()->first();;

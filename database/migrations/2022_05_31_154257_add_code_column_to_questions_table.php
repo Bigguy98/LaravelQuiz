@@ -14,7 +14,9 @@ class AddCodeColumnToQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->text('code')->after('image')->nullable();
+            $table->text('test_code')->after('image')->nullable();
+            $table->text('front_code')->after('image')->nullable();
+            $table->text('config_code')->after('image')->nullable();
         });
     }
 
@@ -26,7 +28,9 @@ class AddCodeColumnToQuestionsTable extends Migration
     public function down()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('code');
+            $table->dropColumn('config_code');
+            $table->dropColumn('front_code');
+            $table->dropColumn('test_code');
         });
     }
 }
