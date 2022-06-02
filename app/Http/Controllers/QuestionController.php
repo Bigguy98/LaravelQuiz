@@ -204,6 +204,11 @@ class QuestionController extends Controller
         return redirect(route('questions.index'));
     }
 
+
+    public function run(Request $request){
+        dd($request->code);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -212,7 +217,6 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
 
         $question = Question::find($id);
         $question->delete();

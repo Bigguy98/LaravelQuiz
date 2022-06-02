@@ -31,6 +31,11 @@
                                     @if(!empty($question->image))
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
                                     @endif
+                                    @if(!empty($question->front_code))
+                                        <textarea rows = 10 class="option class editable">{!! $question->front_code !!}</textarea>
+                                        <button type="button" class="btn btn-success run">Run the code</button>
+                                        <span class="result hidden"></span>
+                                    @endif
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
                                     @forelse($question->options as $option)
@@ -94,6 +99,17 @@
             accurateTrackBounce:true,
             webvisor:true,
             trackHash:true
+        });
+
+        $(document).on('click','.run', function(){
+            code = $(this).prev().html();
+            $.ajax({
+                method: "POST",
+                url: "/run",
+                data: { code: code }
+            }).done(function( data ) {
+                data = JSON.parse(data);
+            });
         });
     </script>
 @endsection

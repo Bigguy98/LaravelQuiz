@@ -227,6 +227,12 @@ input[type="checkbox"]{
     width: 1%;
 }
 
+.editable{
+    width: 100%;
+    border: 1px solid #aaa;
+    padding: 6px 8px;
+}
+
 .hidden{
     display: none;
 }

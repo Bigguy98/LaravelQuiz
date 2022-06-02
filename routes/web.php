@@ -25,3 +25,4 @@ Route::resource('adminpanel', 'AdminPanelController');
 Route::resource('questionsOptions', 'QuestionsOptionsController');
 Route::resource('users', 'UserController');
 Route::post('/questions/store-interview/', 'QuestionController@storeInterview')->name('questions.store-interview');
+Route::post('/run', 'QuestionController@run')->name('run');
