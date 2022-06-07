@@ -233,6 +233,14 @@ input[type="checkbox"]{
     padding: 6px 8px;
 }
 
+.result{
+    color: #fff;
+    padding: 10px;
+    background: #222;
+    margin-top: 12px;
+    border-radius: 4px;
+}
+
 .hidden{
     display: none;
 }

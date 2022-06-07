@@ -8,6 +8,7 @@ use App\Models\Options;
 use App\Models\Question;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -48,7 +49,6 @@ class QuestionController extends Controller
      */
     public function store(StoreQuestionRequest $request)
     {
-        //
         $topicID = $request->input('topic');
         $questionText = $request->input('question');
         $image = $request->input('image');
@@ -70,17 +70,20 @@ class QuestionController extends Controller
         $questionToAdd = Question::latest()->first();;
         $questionID = $questionToAdd->id;
 
-        foreach ($optionArray as $index => $opt) {
-            $option = new Options();
-            $option->question_id = $questionID;
-            $option->option = $opt;
-            foreach ($correctOptions as $correctOption) {
-                if($correctOption == $index+1) {
-                    $option->correct = 1;
+        if(!empty($optionArray) && !empty($optionArray[0])){
+            foreach ($optionArray as $index => $opt) {
+                $option = new Options();
+                $option->question_id = $questionID;
+                $option->option = $opt;
+                if(!empty($correctOptions) && !empty($correctOptions[0])){
+                    foreach ($correctOptions as $correctOption) {
+                        if($correctOption == $index+1) {
+                            $option->correct = 1;
+                        }
+                    }
                 }
+                $option->save();
             }
-
-            $option->save();
         }
 
         return redirect()->back();
@@ -94,8 +97,6 @@ class QuestionController extends Controller
      */
     public function storeInterview(Request $request)
     {
-
-        //
         $topicID = $request->input('topic');
         $questionText = $request->input('question');
         $type = $request->input('type');
@@ -157,10 +158,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-
     {
-        //
-
         $question = Question::find($id);
 
         return view('questions.show', ['question'=>$question]);
@@ -174,7 +172,6 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
         $question = Question::find($id);
         $topics = Topic::all();
 
@@ -191,7 +188,6 @@ class QuestionController extends Controller
      */
     public function update(UpdateQuestionRequest $request, $id)
     {
-        //
         $topicID = $request->input('topic_id');
         $questionText = $request->input('question_text');
 
@@ -206,7 +202,13 @@ class QuestionController extends Controller
 
 
     public function run(Request $request){
-        dd($request->code);
+        $question = Question::where('id',$request->id)->first();
+        
+        Storage::disk('storage')->put('code/src/main/java/Main.java', html_entity_decode($request->code));
+        Storage::disk('storage')->put('code/src/test/java/MainTest.java', html_entity_decode($question->test_code));
+        Storage::disk('storage')->put('code/pom.xml', html_entity_decode($question->config_code));
+        
+        echo nl2br(shell_exec('cd '.storage_path().'/code && mvn test'));
     }
 
     /**

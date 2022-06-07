@@ -26,8 +26,6 @@ class StoreQuestionRequest extends FormRequest
         return [
             'topic' => 'required|exists:topics,id',
             'question' => 'required',
-            'options' => 'required',
-            'correct' => 'required',
         ];
     }
 }

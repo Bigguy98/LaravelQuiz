@@ -53,7 +53,7 @@
                             </div>
                             <tr>
                                 <td>
-                                    <textarea name="question" placeholder="New question" class="form-control question_list" required ></textarea>
+                                    <textarea name="question" placeholder="New question" class="form-control question_list" required></textarea>
                                 </td>
                                 <td>
                                     <textarea name="image" placeholder="Image in base64 format" class="form-control question_list"></textarea>
@@ -68,7 +68,7 @@
                                     <textarea name="config" placeholder="Config file" class="form-control question_list"></textarea>
                                 </td>
                                 <td>
-                                    <textarea name="options[]" placeholder="Option text" class="form-control options_list" required ></textarea>
+                                    <textarea name="options[]" placeholder="Option text" class="form-control options_list"></textarea>
                                 </td>
                                 <td class="check-td">
                                     <input type="checkbox" name="correct[]" value="1" placeholder="Correct" class="form-control" />
@@ -100,9 +100,7 @@
                             </div>
                             <tr>
                                 <td>
-                                    <input type="text" name="question" placeholder="New question"
-                                           class="form-control question_list" required
-                                    />
+                                    <input type="text" name="question" placeholder="New question" class="form-control question_list" required />
                                 </td>
                             </tr>
                                 <tr>
