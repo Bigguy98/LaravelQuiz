@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class Question extends Model
     protected $table = 'questions';
 
     public function options() {
-        return $this->hasMany('App\Options', 'question_id', 'id');
+        return $this->hasMany('App\Models\Options', 'question_id', 'id');
     }
 
     public function correctOptionsCount() {
@@ -23,7 +23,7 @@ class Question extends Model
     }
 
     public function topic() {
-        return $this->hasOne('App\Topic', 'id', 'topic_id');
+        return $this->hasOne('App\Models\Topic', 'id', 'topic_id');
     }
 
 }

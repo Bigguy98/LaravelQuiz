@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Question;
-use App\Result;
-use App\User;
+use App\Models\Question;
+use App\Models\Result;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminPanelController extends Controller

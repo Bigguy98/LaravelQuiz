@@ -31,6 +31,11 @@
                                     @if(!empty($question->image))
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
                                     @endif
+                                    @if(!empty($question->front_code))
+                                        <textarea rows = 10 class="option class editable">{!! $question->front_code !!}</textarea>
+                                        <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
+                                        <div class="result hidden"></div>
+                                    @endif
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
                                     @forelse($question->options as $option)
@@ -41,13 +46,14 @@
                                             </label>
                                         </div>
                                     @empty
-                                     <textarea class="form-control" name="option[{{$question->id}}]" ></textarea>
+                                    <textarea class="custom form-control @if(!empty($question->front_code)) hidden @endif" name="option[{{$question->id}}]" ></textarea>
                                     @endforelse
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                        <a href="{{route('results.show', $topic->id)}}"><input type="submit" value="Submit" class="btn btn-primary mt-3"></a><br>
+                        <input type="button" value="Submit" class="btn btn-primary send mt-3">
+                        <br><br>
                     </form>
                 </div>
             </div>
@@ -94,6 +100,37 @@
             accurateTrackBounce:true,
             webvisor:true,
             trackHash:true
+        });
+
+        $(document).on('click','.run', function(){
+            code = $(this).prev().html();
+            id = $(this).attr('data-id');
+            result = $(this).next();
+            result.html("Executing...");
+            result.removeClass('hidden');
+            custom = $(this).parent().find('.custom');
+            $.ajax({
+                method: "POST",
+                url: "/run",
+                data: { 'code': code, 'id': id }
+            }).done(function( data ) {
+                result.html(data);
+                custom.html(data);
+            });
+        });
+
+        $(document).on('mouseenter','.send',function(){
+            send = true;
+            $( ".result" ).each(function( index ) {
+                if($( this ).text() == ''){
+                    send = false;
+                }
+            });
+            if(send){
+                $(this).attr('type', 'submit'); 
+            }else{
+                alert('Warning! You need to run the code in all forms by clicking the "Run the code" button.');
+            }
         });
     </script>
 @endsection

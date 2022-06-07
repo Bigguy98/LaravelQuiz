@@ -215,3 +215,32 @@ body {
     bottom: 0px;
     color: #888;
 }
+
+input[type="checkbox"]{
+    width: 20px;
+    outline: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.check-td, .button-td{
+    width: 1%;
+}
+
+.editable{
+    width: 100%;
+    border: 1px solid #aaa;
+    padding: 6px 8px;
+}
+
+.result{
+    color: #fff;
+    padding: 10px;
+    background: #222;
+    margin-top: 12px;
+    border-radius: 4px;
+}
+
+.hidden{
+    display: none;
+}

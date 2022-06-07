@@ -9,3 +9,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.DS_Store
+/storage/code/**
+!/storage/code/**/
+!/storage/code/src/main/java/**/.gitkeep
+!/storage/code/src/test/java/**/.gitkeep

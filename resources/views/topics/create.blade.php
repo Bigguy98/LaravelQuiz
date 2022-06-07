@@ -53,27 +53,28 @@
                             </div>
                             <tr>
                                 <td>
-                                    <input type="text" name="question" placeholder="New question"
-                                           class="form-control question_list" required
-                                    />
-                                <td>
-                                    <input type="text" name="options[]" placeholder="New option"
-                                           class="form-control options_list" required
-                                    />
+                                    <textarea name="question" placeholder="New question" class="form-control question_list" required></textarea>
                                 </td>
                                 <td>
-                                    <input type="checkbox"
-                                           name="correct[]"
-                                           value="1"
-                                           placeholder="Correct"
-                                           class="form-control"
-                                    />
-                                </td>
+                                    <textarea name="image" placeholder="Image in base64 format" class="form-control question_list"></textarea>
                                 </td>
                                 <td>
-                                    <button type="button" name="addAnswer" id="addAnswer" class="btn btn-success mb-2">
-                                        Add Answer
-                                    </button>
+                                    <textarea name="front" placeholder="Front code" class="form-control question_list"></textarea>
+                                </td>
+                                <td>
+                                    <textarea name="test" placeholder="Test code" class="form-control question_list"></textarea>
+                                </td>
+                                <td>
+                                    <textarea name="config" placeholder="Config file" class="form-control question_list"></textarea>
+                                </td>
+                                <td>
+                                    <textarea name="options[]" placeholder="Option text" class="form-control options_list"></textarea>
+                                </td>
+                                <td class="check-td">
+                                    <input type="checkbox" name="correct[]" value="1" placeholder="Correct" class="form-control" />
+                                </td>
+                                <td class="button-td">
+                                    <button type="button" name="addAnswer" id="addAnswer" class="btn btn-success mb-2">+</button>
                                 </td>
                             </tr>
                         </table>
@@ -99,9 +100,7 @@
                             </div>
                             <tr>
                                 <td>
-                                    <input type="text" name="question" placeholder="New question"
-                                           class="form-control question_list" required
-                                    />
+                                    <input type="text" name="question" placeholder="New question" class="form-control question_list" required />
                                 </td>
                             </tr>
                                 <tr>
@@ -160,12 +159,20 @@
                     '<td>' +
                     '</td>' +
                     '<td>' +
-                    '<input type="text" name="options[]" required placeholder="New option" class="form-control question_list" />' +
                     '</td>' +
                     '<td>' +
+                    '</td>' +
+                    '<td>' +
+                    '</td>' +
+                    '<td>' +
+                    '</td>' +
+                    '<td>' +
+                    '<textarea name="options[]" required placeholder="New option" class="form-control question_list" ></textarea>' +
+                    '</td>' +
+                    '<td class="check-td">' +
                     '<input type="checkbox" name="correct[]" value="' + n + '" class="form-control question_list" />' +
                     '</td>' +
-                    '<td>' +
+                    '<td class="button-td">' +
                     '<button type="button" name="remove" id="' + n + '" class="btn btn-danger btn_remove">X</button>' +
                     '</td>' +
                     '</tr>');
@@ -176,7 +183,7 @@
                 $('#select_field').append('' +
                     '<tr id="row' + b + '-o" class="dynamic-added">' +
                     '<td>' +
-                    '<input type="text" name="options[]" placeholder="New option" class="form-control question_list" />' +
+                    '<input type="text" name="options[]" placeholder="Option text" class="form-control question_list" />' +
                     '</td>' +
                     '<td>' +
                     '<button type="button" name="remove" id="' + b + '-o" class="btn btn-danger btn_remove">X</button>' +
@@ -188,7 +195,6 @@
                 var button_id = $(this).attr("id");
                 $('#row' + button_id + '').remove();
             });
-
         });
     </script>
 @endsection
