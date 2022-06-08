@@ -74,7 +74,6 @@ class ResultsController extends Controller
         //
         $score = 0;
         $questions = $request->input('option');
-
         if ($questions) {
             foreach ($questions as $key => $value) {
                 $question = Question::find($key);
@@ -87,8 +86,12 @@ class ResultsController extends Controller
                             $userCorrectAnswers--;
                         }
                     }
+                }elseif(is_string($value)){
+                    if(strpos($value, '[INFO] BUILD SUCCESS') !== false){
+                        $score++;
+                    }
                 }
-                if ($question->correctOptionsCount() == $userCorrectAnswers) {
+                if ($question->correctOptionsCount() != 0 && $question->correctOptionsCount() == $userCorrectAnswers) {
                     $score++;
                 }
             }

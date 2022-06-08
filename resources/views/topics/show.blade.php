@@ -31,11 +31,21 @@
                                     @if(!empty($question->image))
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
                                     @endif
-                                    @if(!empty($question->front_code))
-                                        <textarea rows = 10 class="option class editable">{!! $question->front_code !!}</textarea>
-                                        <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
-                                        <div class="result hidden"></div>
+                                    @if(!empty($question->front_code) && $question->show_front_code)
+                                        <textarea rows = 10 class="option class editable front_code">{!! $question->front_code !!}</textarea>
+                                        <div class="front_result hidden"></div>
                                     @endif
+                                    @if(!empty($question->test_code) && $question->show_test_code)
+                                        <textarea rows = 10 class="option class editable test_code">{!! $question->test_code !!}</textarea>
+                                        <div class="test_result hidden"></div>
+                                    @endif
+                                    @if(!empty($question->config_code) && $question->show_config_code)
+                                        <textarea rows = 10 class="option class editable config_code">{!! $question->config_code !!}</textarea>
+                                        <div class="config_result hidden"></div>
+                                    @endif
+                                    @if(!empty($question->front_code) && $question->show_front_code || !empty($question->test_code) && $question->show_test_code || !empty($question->config_code) && $question->show_config_code)
+                                        <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
+                                    @endif 
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
                                     @forelse($question->options as $option)

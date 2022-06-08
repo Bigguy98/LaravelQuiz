@@ -52,9 +52,12 @@ class QuestionController extends Controller
         $topicID = $request->input('topic');
         $questionText = $request->input('question');
         $image = $request->input('image');
-        $front = $request->input('front');        
+        $front = $request->input('front');
         $test = $request->input('test');
         $config = $request->input('config');
+        $show_front = $request->input('show_front') == "on" ? true : false;
+        $show_test = $request->input('show_test') == "on" ? true : false;
+        $show_config = $request->input('show_config') == "on" ? true : false;
         $optionArray = $request->input('options');
         $correctOptions = $request->input('correct');
 
@@ -65,9 +68,12 @@ class QuestionController extends Controller
         $question->front_code = $front;
         $question->test_code = $test;
         $question->config_code = $config;
+        $question->show_front_code = $show_front;
+        $question->show_test_code = $show_test;
+        $question->show_config_code = $show_config;
         $question->save();
 
-        $questionToAdd = Question::latest()->first();;
+        $questionToAdd = Question::latest()->first();
         $questionID = $questionToAdd->id;
 
         if(!empty($optionArray) && !empty($optionArray[0])){
@@ -204,8 +210,8 @@ class QuestionController extends Controller
     public function run(Request $request){
         $question = Question::where('id',$request->id)->first();
         
-        Storage::disk('storage')->put('code/src/main/java/Main.java', html_entity_decode($request->code));
-        Storage::disk('storage')->put('code/src/test/java/MainTest.java', html_entity_decode($question->test_code));
+        Storage::disk('storage')->put('code/src/main/java/Example.java', html_entity_decode($request->code));
+        Storage::disk('storage')->put('code/src/test/java/ExampleTest.java', html_entity_decode($question->test_code));
         Storage::disk('storage')->put('code/pom.xml', html_entity_decode($question->config_code));
         
         echo nl2br(shell_exec('cd '.storage_path().'/code && mvn test'));

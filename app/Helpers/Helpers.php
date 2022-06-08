@@ -56,3 +56,9 @@ function timeClass($date1,$date2,$answers){
 		return 'danger';
 	}
 }
+
+function colorize($text){
+	$text = str_replace('[INFO] BUILD FAILURE', '<span class="red">[INFO] BUILD FAILURE</span>', $text);
+	$text = str_replace('[INFO] BUILD SUCCESS', '<span class="green">[INFO] BUILD SUCCESS</span>', $text);
+	return $text;
+}
