@@ -31,10 +31,29 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <label for="question_text" class="control-label">Question text</label>
-                                    <textarea class="form-control" required placeholder="" name="question_text"
-                                              cols="50"
-                                              rows="10">{{$question->question_text}}</textarea>
+                                    
+                                    <label for="question" class="control-label">Question text</label>
+                                    <textarea class="form-control" required name="question" id="question" rows="5">{{$question->question_text}}</textarea>
+                                    
+                                    <br>
+                                    <label for="image" class="control-label">Question image in base64 format</label>
+                                    <textarea name="image" id="image" rows="5" class="form-control question_list">{{$question->image}}</textarea>
+                                    
+                                    <br>
+                                    <label for="front" class="control-label">Code of Example.java file</label>
+                                    <textarea name="front" id="front" rows="5" class="form-control question_list">{{$question->front_code}}</textarea>
+                                    <label> <input type="checkbox" name="show_front" {{$question->show_front_code ? "checked" : ""}} > Show to user</label>
+                                    
+                                    <br>
+                                    <label for="test" class="control-label">Code of ExampleTest.java file</label>
+                                    <textarea name="test" id="test" rows="5" class="form-control question_list">{{$question->test_code}}</textarea>
+                                    <label> <input type="checkbox" name="show_test" {{$question->show_test_code ? "checked" : ""}} > Show to user</label>
+                                    
+                                    <br>
+                                    <label for="config" class="control-label">Code of config pom.xml file</label>
+                                    <textarea name="config" id="config" rows="5" class="form-control question_list">{{$question->config_code}}</textarea>
+                                    <label> <input type="checkbox" name="show_config" {{$question->show_config_code ? "checked" : ""}} > Show to user</label>
+                                    
                                 </div>
                             </div>
                         </div>
