@@ -31,11 +31,19 @@
                                     @if(!empty($question->image))
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
                                     @endif
-                                    @if(!empty($question->front_code))
-                                        <textarea rows = 10 class="option class editable">{!! $question->front_code !!}</textarea>
+                                    @if(!empty($question->front_code) && $question->show_front_code)
+                                        <textarea rows = 10 class="option class editable front_code">{!! $question->front_code !!}</textarea>
+                                    @endif
+                                    @if(!empty($question->test_code) && $question->show_test_code)
+                                        <textarea rows = 10 class="option class editable test_code">{!! $question->test_code !!}</textarea>
+                                    @endif
+                                    @if(!empty($question->config_code) && $question->show_config_code)
+                                        <textarea rows = 10 class="option class editable config_code">{!! $question->config_code !!}</textarea>
+                                    @endif
+                                    @if(!empty($question->front_code) && $question->show_front_code || !empty($question->test_code) && $question->show_test_code || !empty($question->config_code) && $question->show_config_code)
                                         <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
                                         <div class="result hidden"></div>
-                                    @endif
+                                    @endif 
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
                                     @forelse($question->options as $option)
@@ -103,7 +111,18 @@
         });
 
         $(document).on('click','.run', function(){
-            code = $(this).prev().html();
+            front = false;
+            test = false;
+            config = false;
+            if($(this).closest('.question-wrapper').find('.front_code').length !== 0){
+                front = $(this).closest('.question-wrapper').find('.front_code').val();
+            }
+            if($(this).closest('.question-wrapper').find('.test_code').length !== 0){
+                test = $(this).closest('.question-wrapper').find('.test_code').val();
+            }
+            if($(this).closest('.question-wrapper').find('.config_code').length !== 0){
+                config = $(this).closest('.question-wrapper').find('.config_code').val();
+            }
             id = $(this).attr('data-id');
             result = $(this).next();
             result.html("Executing...");
@@ -112,7 +131,7 @@
             $.ajax({
                 method: "POST",
                 url: "/run",
-                data: { 'code': code, 'id': id }
+                data: { 'front': front, 'test': test, 'config': config, 'id': id }
             }).done(function( data ) {
                 result.html(data);
                 custom.html(data);

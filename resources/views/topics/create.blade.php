@@ -56,16 +56,19 @@
                                     <textarea name="question" placeholder="New question" class="form-control question_list" required></textarea>
                                 </td>
                                 <td>
-                                    <textarea name="image" placeholder="Image in base64 format" class="form-control question_list"></textarea>
+                                    <textarea name="image" placeholder="Question image in base64 format" class="form-control question_list"></textarea>
                                 </td>
                                 <td>
-                                    <textarea name="front" placeholder="Front code" class="form-control question_list"></textarea>
+                                    <textarea name="front" placeholder="Code of Example.java file" class="form-control question_list"></textarea>
+                                    <label> <input type="checkbox" name="show_front"> Show to user</label>
                                 </td>
                                 <td>
-                                    <textarea name="test" placeholder="Test code" class="form-control question_list"></textarea>
+                                    <textarea name="test" placeholder="Code of ExampleTest.java file" class="form-control question_list"></textarea>
+                                    <label> <input type="checkbox" name="show_test"> Show to user</label>
                                 </td>
                                 <td>
-                                    <textarea name="config" placeholder="Config file" class="form-control question_list"></textarea>
+                                    <textarea name="config" placeholder="Code of config pom.xml file" class="form-control question_list"></textarea>
+                                    <label> <input type="checkbox" name="show_config"> Show to user</label>
                                 </td>
                                 <td>
                                     <textarea name="options[]" placeholder="Option text" class="form-control options_list"></textarea>

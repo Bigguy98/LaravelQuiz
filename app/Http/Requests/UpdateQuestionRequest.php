@@ -25,7 +25,7 @@ class UpdateQuestionRequest extends FormRequest
     {
         return [
             'topic_id' => 'required|exists:topics,id',
-            'question_text' => 'required',
+            'question' => 'required',
         ];
     }
 }

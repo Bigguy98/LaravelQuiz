@@ -48,7 +48,7 @@
                                         <ul>
                                             @foreach($result->options as $user_option)
                                                 @if($user_option->question_id == $question->id)
-                                                    {!!$user_option->custom!!}
+                                                    {!! colorize($user_option->custom) !!}
                                                 @endif
                                             @endforeach
                                             @foreach($question->options as $option)
