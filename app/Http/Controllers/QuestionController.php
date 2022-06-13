@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Options;
 use App\Models\Question;
 use App\Models\Topic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -217,18 +217,6 @@ class QuestionController extends Controller
 
 
         return redirect(route('questions.index'));
-    }
-
-
-    public function run(Request $request){
-        
-        $question = Question::where('id',$request->id)->first();
-
-        Storage::disk('storage')->put('code/src/main/java/Example.java', html_entity_decode($question->show_front_code ? $request->front : $question->front_code));
-        Storage::disk('storage')->put('code/src/test/java/ExampleTest.java', html_entity_decode($question->show_test_code ? $request->test : $question->test_code));
-        Storage::disk('storage')->put('code/pom.xml', html_entity_decode($question->show_config_code ? $request->config : $question->config_code));
-        
-        echo nl2br(shell_exec('cd '.storage_path().'/code && mvn test'));
     }
 
     /**
