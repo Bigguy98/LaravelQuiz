@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Http\Requests\StoreResultRequest;
 use App\Models\Question;
 use App\Models\Result;
@@ -9,7 +10,6 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\UserOption;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ResultsController extends Controller
 {
@@ -87,7 +87,7 @@ class ResultsController extends Controller
                         }
                     }
                 }elseif(is_string($value)){
-                    if(strpos($value, '[INFO] BUILD SUCCESS') !== false){
+                    if(strpos($value, 'BUILD SUCCESS') !== false){
                         $score++;
                     }
                 }
@@ -141,12 +141,12 @@ class ResultsController extends Controller
      */
     public function show($id)
     {
-        //
-
         $result = Result::find($id);
-
-        return view('results.show', ['result' => $result]);
-
+        if(Auth::check() && ($result->user_id == Auth::user()->id || Auth::user()->role == 'admin')){
+            return view('results.show', ['result' => $result]);
+        }else{
+            abort(403);
+        }
     }
 
     /**

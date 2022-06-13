@@ -138,7 +138,8 @@
             });
         });
 
-        $(document).on('mouseenter','.send',function(){
+        clicked = false;
+        $(document).on('click','.send',function(){
             send = true;
             $( ".result" ).each(function( index ) {
                 if($( this ).text() == ''){
@@ -146,9 +147,24 @@
                 }
             });
             if(send){
-                $(this).attr('type', 'submit'); 
+                $('form').submit();
             }else{
-                alert('Warning! You need to run the code in all forms by clicking the "Run the code" button.');
+                $(this).attr('value','Executing all code ...');
+                if(!clicked){
+                    clicked = true;
+                    $('.run').click();
+                    setInterval(function(){
+                        ready = true;
+                        $( ".result" ).each(function( index ) {
+                            if($( this ).text() == ''){
+                                ready = false;
+                            }
+                        });
+                        if(ready){
+                            $('form').submit();
+                        }
+                    },6000);
+                }
             }
         });
     </script>
