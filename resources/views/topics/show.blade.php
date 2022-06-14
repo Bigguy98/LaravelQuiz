@@ -42,7 +42,7 @@
                                     @endif
                                     @if(!empty($question->front_code) && $question->show_front_code || !empty($question->test_code) && $question->show_test_code || !empty($question->config_code) && $question->show_config_code)
                                         <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
-                                        <div class="result hidden"></div>
+                                        <div class="result result{{$question->id}} hidden"></div>
                                     @endif 
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
@@ -54,7 +54,7 @@
                                             </label>
                                         </div>
                                     @empty
-                                    <textarea class="custom form-control @if(!empty($question->front_code)) hidden @endif" name="option[{{$question->id}}]" ></textarea>
+                                    <textarea class="custom custom{{$question->id}} form-control @if(!empty($question->front_code)) hidden @endif" name="option[{{$question->id}}]" ></textarea>
                                     @endforelse
                                     </div>
                                 </div>
@@ -123,18 +123,16 @@
             if($(this).closest('.question-wrapper').find('.config_code').length !== 0){
                 config = $(this).closest('.question-wrapper').find('.config_code').val();
             }
+            $(this).next().html("Executing...").removeClass('hidden');
             id = $(this).attr('data-id');
-            result = $(this).next();
-            result.html("Executing...");
-            result.removeClass('hidden');
-            custom = $(this).parent().find('.custom');
             $.ajax({
                 method: "POST",
                 url: "/run",
                 data: { 'front': front, 'test': test, 'config': config, 'id': id }
             }).done(function( data ) {
-                result.html(data);
-                custom.html(data);
+                data = JSON.parse(data);
+                $('.result'+data.id).html(data.text);
+                $('.custom'+data.id).html(data.text);
             });
         });
 
