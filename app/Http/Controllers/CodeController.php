@@ -39,24 +39,24 @@ class CodeController extends Controller
         if(isset($fronts[1][0]) && !empty($fronts[1][0])){
             $front_name = trim($fronts[1][0]);
         }else{
-            echo "Problem reading main java file syntax";
-            exit();
+            $text = "Problem reading main java file syntax.";
+            goto next;
         }
 
         preg_match_all('/class (.*) {/msU', $test, $tests);
         if(isset($tests[1][0]) && !empty($tests[1][0])){
             $test_name = trim($tests[1][0]);
         }else{
-            echo "Problem reading tests java file syntax";
-            exit();
+            $text = "Problem reading tests java file syntax.";
+            goto next;
         }
 
         preg_match_all('/<scope>(.*)<\/scope>/msU', $config, $configs);
         if(isset($configs[1][0]) && !empty($configs[1][0])){
             $config_name = trim($configs[1][0]);
         }else{
-            echo "Problem reading config file syntax.";
-            exit();
+            $text = "Problem reading config file syntax.";
+            goto next;
         }
 
         shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && rm -r *');
@@ -66,10 +66,13 @@ class CodeController extends Controller
         Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/pom.xml', html_entity_decode($config));
             
         $text = nl2br(shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && mvn '.$config_name));
+        
+        next:
         if(strpos($text, 'BUILD SUCCESS') !== false){
             $status = true;
-        }
-        if(strpos($text, 'BUILD FAIL') !== false){
+        }elseif(strpos($text, 'BUILD FAIL') !== false){
+            $status = false;
+        }else{
             $status = false;
         }
 
