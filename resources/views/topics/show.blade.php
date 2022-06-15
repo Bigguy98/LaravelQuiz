@@ -41,7 +41,11 @@
                                         <textarea rows = 10 class="option class editable config_code">{!! $question->config_code !!}</textarea>
                                     @endif
                                     @if(!empty($question->front_code) && $question->show_front_code || !empty($question->test_code) && $question->show_test_code || !empty($question->config_code) && $question->show_config_code)
-                                        <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
+                                        <div class="flex">
+                                            <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
+                                            <div class="alert hidden alert-success{{$question->id}} alert-success">Build success</div>
+                                            <div class="alert hidden alert-danger{{$question->id}} alert-danger">Build failure</div>
+                                        </div>
                                         <div class="result result{{$question->id}} hidden"></div>
                                     @endif 
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
@@ -114,6 +118,7 @@
             front = false;
             test = false;
             config = false;
+           
             if($(this).closest('.question-wrapper').find('.front_code').length !== 0){
                 front = $(this).closest('.question-wrapper').find('.front_code').val();
             }
@@ -123,8 +128,12 @@
             if($(this).closest('.question-wrapper').find('.config_code').length !== 0){
                 config = $(this).closest('.question-wrapper').find('.config_code').val();
             }
-            $(this).next().html("Executing...").removeClass('hidden');
+           
             id = $(this).attr('data-id');
+            $('.result'+id).html("Executing...").removeClass('hidden');
+            $('.alert-success'+id).addClass('hidden');
+            $('.alert-danger'+id).addClass('hidden');
+           
             $.ajax({
                 method: "POST",
                 url: "/run",
@@ -133,6 +142,11 @@
                 data = JSON.parse(data);
                 $('.result'+data.id).html(data.text);
                 $('.custom'+data.id).html(data.text);
+                if(data.status){
+                    $('.alert-success'+data.id).removeClass('hidden');
+                }else{
+                    $('.alert-danger'+data.id).removeClass('hidden');
+                }
             });
         });
 
@@ -140,7 +154,7 @@
         $(document).on('click','.send',function(){
             send = true;
             $( ".result" ).each(function( index ) {
-                if($( this ).text() == ''){
+                if($( this ).text() == '' || $( this ).text() == 'Executing...'){
                     send = false;
                 }
             });
@@ -152,16 +166,8 @@
                     clicked = true;
                     $('.run').click();
                     setInterval(function(){
-                        ready = true;
-                        $( ".result" ).each(function( index ) {
-                            if($( this ).text() == ''){
-                                ready = false;
-                            }
-                        });
-                        if(ready){
-                            $('form').submit();
-                        }
-                    },6000);
+                        $('.send').click();
+                    },500);
                 }
             }
         });
