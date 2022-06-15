@@ -64,7 +64,19 @@ class CodeController extends Controller
         Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/main/java/'.$front_name.'.java', html_entity_decode($front));
         Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/test/java/'.$test_name.'.java', html_entity_decode($test));
         Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/pom.xml', html_entity_decode($config));
-        
-        echo nl2br(shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && mvn '.$config_name));
+            
+        $text = nl2br(shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && mvn '.$config_name));
+        if(strpos($text, 'BUILD SUCCESS') !== false){
+            $status = true;
+        }
+        if(strpos($text, 'BUILD FAIL') !== false){
+            $status = false;
+        }
+
+        echo json_encode([
+            'id' => $request->id,
+            'text' => $text,
+            'status' => $status
+        ]);
     }
 }

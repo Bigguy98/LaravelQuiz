@@ -241,6 +241,16 @@ input[type="checkbox"]{
     border-radius: 4px;
 }
 
+.flex{
+    display: flex;
+}
+
+.alert{
+    margin: 0px 0px 0px 10px;
+    width: -webkit-fill-available;
+    padding: 7px 10px 5px;
+}
+
 .hidden{
     display: none;
 }
