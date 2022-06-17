@@ -46,7 +46,11 @@
                                             <div class="alert hidden alert-success{{$question->id}} alert-success">Build success</div>
                                             <div class="alert hidden alert-danger{{$question->id}} alert-danger">Build failure</div>
                                         </div>
-                                        <div class="result result{{$question->id}} hidden"></div>
+                                        <div class="result-wrapper">
+                                            <div class="result h43 result{{$question->id}} hidden"></div>
+                                            <button type="button" class="btn hide-result hide-result{{$question->id}} hidden btn-primary" data-id="{{$question->id}}">-</button>
+                                            <button type="button" class="btn show-result show-result{{$question->id}} hidden btn-primary" data-id="{{$question->id}}">+</button>
+                                        </div>
                                     @endif 
                                     <input type="hidden" name="question_id[]" value="{{$question->id}}">
                                     <div class="options @if(isset($question->options[9]['option']) && $question->options[9]['option'] == '10' || isset($question->options[4]['option']) && $question->options[4]['option'] == 'Expert') options-inline @endif @if(isset($question->options[0]['option']) && ($question->options[0]['option'] == '<10' || $question->options[0]['option'] == 'Junior Standard')) single @endif">
@@ -131,6 +135,9 @@
            
             id = $(this).attr('data-id');
             $('.result'+id).html("Executing...").removeClass('hidden');
+            if($('.hide-result'+id).hasClass('hidden')){
+                $('.show-result'+id).removeClass('hidden');
+            }
             $('.alert-success'+id).addClass('hidden');
             $('.alert-danger'+id).addClass('hidden');
            
@@ -170,6 +177,20 @@
                     },500);
                 }
             }
+        });
+
+        $(document).on('click','.show-result',function(){
+            id = $(this).attr('data-id');
+            $('.show-result'+id).addClass('hidden');
+            $('.hide-result'+id).removeClass('hidden');
+            $('.result'+id).removeClass('h43').addClass('h100');
+        });
+
+        $(document).on('click','.hide-result',function(){
+            id = $(this).attr('data-id');
+            $('.hide-result'+id).addClass('hidden');
+            $('.show-result'+id).removeClass('hidden');
+            $('.result'+id).removeClass('h100').addClass('h43');
         });
     </script>
 @endsection
