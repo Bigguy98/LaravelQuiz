@@ -35,27 +35,19 @@ class CodeController extends Controller
         $test = $question->show_test_code ? $request->test : $question->test_code;
         $config = $question->show_config_code ? $request->config : $question->config_code;
 
-        preg_match_all('/class (.*) {/msU', $front, $fronts);
+        preg_match_all('/class (\w+)[\{|\s]/msU', $front, $fronts);
         if(isset($fronts[1][0]) && !empty($fronts[1][0])){
             $front_name = trim($fronts[1][0]);
         }else{
-            $text = "Problem reading main java file syntax.";
+            $text = "Main java file parsing problem (the class name is not defined of corrupted).";
             goto next;
         }
 
-        preg_match_all('/class (.*) {/msU', $test, $tests);
+        preg_match_all('/class (\w+)[\{|\s]/msU', $test, $tests);
         if(isset($tests[1][0]) && !empty($tests[1][0])){
             $test_name = trim($tests[1][0]);
         }else{
-            $text = "Problem reading tests java file syntax.";
-            goto next;
-        }
-
-        preg_match_all('/<scope>(.*)<\/scope>/msU', $config, $configs);
-        if(isset($configs[1][0]) && !empty($configs[1][0])){
-            $config_name = trim($configs[1][0]);
-        }else{
-            $text = "Problem reading config file syntax.";
+            $text = "Test java file parsing problem (the class name is not defined of corrupted).";
             goto next;
         }
 
@@ -65,7 +57,7 @@ class CodeController extends Controller
         Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/test/java/'.$test_name.'.java', html_entity_decode($test));
         Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/pom.xml', html_entity_decode($config));
             
-        $text = nl2br(shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && mvn '.$config_name));
+        $text = nl2br(shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && mvn test'));
         
         next:
         if(strpos($text, 'BUILD SUCCESS') !== false){
