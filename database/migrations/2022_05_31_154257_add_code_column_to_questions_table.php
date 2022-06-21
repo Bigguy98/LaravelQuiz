@@ -14,9 +14,9 @@ class AddCodeColumnToQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->text('test_code')->after('image')->nullable();
-            $table->text('front_code')->after('image')->nullable();
-            $table->text('config_code')->after('image')->nullable();
+            $table->longText('test_code')->after('image')->nullable();
+            $table->longText('front_code')->after('image')->nullable();
+            $table->longText('config_code')->after('image')->nullable();
         });
     }
 
