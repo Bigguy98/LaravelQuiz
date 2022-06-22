@@ -14,7 +14,7 @@ class AddImageColumnToQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->text('image')->after('question_text')->nullable();
+            $table->longText('image')->after('question_text')->nullable();
         });
     }
 

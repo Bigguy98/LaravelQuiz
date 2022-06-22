@@ -14,7 +14,7 @@ class AddCustomColumnToUserOptionsTable extends Migration
     public function up()
     {
         Schema::table('user_options', function (Blueprint $table) {
-            $table->text('custom')->after('topic_id')->nullable();
+            $table->longText('custom')->after('topic_id')->nullable();
         });
     }
 
