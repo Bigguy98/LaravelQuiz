@@ -1,11 +1,6 @@
-/*!
- * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
- */
 body {
     overflow-x: hidden;
-    background: rgb(228,243,229);
+    background: rgb(228, 243, 229);
     font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -54,22 +49,22 @@ body {
     display: inline-block;
 }
 
-.question-wrapper{
+.question-wrapper {
     box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-    transition: box-shadow 280ms cubic-bezier(0.4,0.0,0.2,1);
+    transition: box-shadow 280ms cubic-bezier(0.4, 0.0, 0.2, 1);
     background-color: #fff;
     border: 1px solid #dadce0;
     -webkit-border-radius: 8px;
     border-radius: 8px;
     position: relative;
-    -webkit-transition: box-shadow .25s cubic-bezier(0.0,0.0,0.2,1);
-    transition: box-shadow .25s cubic-bezier(0.0,0.0,0.2,1);
+    -webkit-transition: box-shadow .25s cubic-bezier(0.0, 0.0, 0.2, 1);
+    transition: box-shadow .25s cubic-bezier(0.0, 0.0, 0.2, 1);
     padding: 24px;
     margin-top: 12px;
 }
 
-.question{
-    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+.question {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
     font-size: 18px;
     font-weight: 500;
     letter-spacing: .1px;
@@ -77,7 +72,7 @@ body {
     font-weight: 400;
 }
 
-.option{
+.option {
     background-color: transparent;
     border: none;
     display: block;
@@ -86,7 +81,7 @@ body {
     outline: none;
     padding: .125em 0;
     z-index: 0;
-    font-family: Roboto,Arial,sans-serif;
+    font-family: Roboto, Arial, sans-serif;
     font-size: 15px;
     font-weight: 400;
     letter-spacing: .2px;
@@ -96,74 +91,74 @@ body {
 }
 
 .checkbox-main {
-  display: block;
-  position: relative;
-  padding-left: 30px;
-  margin-bottom: 11px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  padding-top: 1px;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 11px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-top: 1px;
 }
 
 .checkbox-main input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
 .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 22px;
-  width: 22px;
-  background-color: #eee;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
 }
 
-.checkbox-main:hover input ~ .checkmark {
-  background-color: #ccc;
+.checkbox-main:hover input~.checkmark {
+    background-color: #ccc;
 }
 
-.checkbox-main input:checked ~ .checkmark {
-  background-color: #2196F3;
+.checkbox-main input:checked~.checkmark {
+    background-color: #2196F3;
 }
 
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
 
-.checkbox-main input:checked ~ .checkmark:after {
-  display: block;
+.checkbox-main input:checked~.checkmark:after {
+    display: block;
 }
 
 .checkbox-main .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
-.img-quiz{
+.img-quiz {
     margin: 20px 0;
 }
 
-.table-white{
+.table-white {
     background: white;
 }
 
-.options-inline{
+.options-inline {
     display: flex;
     justify-content: space-between;
 }
@@ -172,19 +167,41 @@ body {
     color: green;
 }
 
-.red{
+.red {
     color: red;
 }
 
-.success{color:#5cb85c}
-.info{color:#5bc0de}
-.warning{color:#f0ad4e}
-.danger{color:#d9534f}
+.success {
+    color: #5cb85c
+}
 
-.progress-bar-success{background-color:#5cb85c}
-.progress-bar-info{background-color:#5bc0de}
-.progress-bar-warning{background-color:#f0ad4e}
-.progress-bar-danger{background-color:#d9534f}
+.info {
+    color: #5bc0de
+}
+
+.warning {
+    color: #f0ad4e
+}
+
+.danger {
+    color: #d9534f
+}
+
+.progress-bar-success {
+    background-color: #5cb85c
+}
+
+.progress-bar-info {
+    background-color: #5bc0de
+}
+
+.progress-bar-warning {
+    background-color: #f0ad4e
+}
+
+.progress-bar-danger {
+    background-color: #d9534f
+}
 
 .progress {
     position: relative;
@@ -192,7 +209,7 @@ body {
     background-color: #ccc;
 }
 
-.progress > .progress-type {
+.progress>.progress-type {
     position: absolute;
     left: 0px;
     font-weight: 800;
@@ -201,14 +218,14 @@ body {
     background-color: rgba(25, 25, 25, 0.2);
 }
 
-.progress > .progress-completed {
+.progress>.progress-completed {
     position: absolute;
     right: 0px;
     font-weight: 800;
     padding: 3px 10px 2px;
 }
 
-#countdown{
+#countdown {
     position: fixed;
     right: 15px;
     font-size: 20px;
@@ -216,24 +233,25 @@ body {
     color: #888;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     width: 20px;
     outline: none;
     margin: 0px;
     padding: 0px;
 }
 
-.check-td, .button-td{
+.check-td,
+.button-td {
     width: 1%;
 }
 
-.editable{
+.editable {
     width: 100%;
     border: 1px solid #aaa;
     padding: 6px 8px;
 }
 
-.result{
+.result {
     color: #fff;
     padding: 10px;
     background: #222;
@@ -242,25 +260,26 @@ input[type="checkbox"]{
     overflow: hidden;
 }
 
-.h43{
+.h43 {
     height: 43px;
 }
 
-.h100{
+.h100 {
     height: 100%;
 }
 
-.flex{
+.flex {
     display: flex;
 }
 
-.alert{
+.alert {
     margin: 0px 0px 0px 10px;
     width: -webkit-fill-available;
     padding: 7px 10px 5px;
 }
 
-.hide-result, .show-result{
+.hide-result,
+.show-result {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -269,10 +288,55 @@ input[type="checkbox"]{
     font-weight: 700;
 }
 
-.result-wrapper{
+.result-wrapper {
     position: relative;
 }
 
-.hidden{
+.lds-facebook {
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #ccc;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+    0% {
+        top: 8px;
+        height: 64px;
+    }
+
+    50%,
+    100% {
+        top: 24px;
+        height: 32px;
+    }
+}
+
+.hidden {
     display: none;
 }

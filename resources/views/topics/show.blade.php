@@ -42,7 +42,7 @@
                                     @endif
                                     @if(!empty($question->front_code) && $question->show_front_code || !empty($question->test_code) && $question->show_test_code || !empty($question->config_code) && $question->show_config_code)
                                         <div class="flex">
-                                            <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
+                                            <button type="button" data-id="{{$question->id}}" class="btn btn-success run" data-toggle="modal" data-target="#exampleModal">Run the code</button>
                                             <div class="alert hidden alert-success{{$question->id}} alert-success">Build success</div>
                                             <div class="alert hidden alert-danger{{$question->id}} alert-danger">Build failure</div>
                                         </div>
@@ -77,6 +77,27 @@
             <h1>No Topic</h1>
         @endif
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Processing</h5>
+            <button type="button" class="close hidden" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <br>
+            <h6>Please do not close this window, tests of your code are currently running.</h6>
+            <div class="lds-facebook"><div></div><div></div><div></div></div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
        function startTimer(duration, display) {
             var timer = duration, minutes, seconds;
@@ -149,6 +170,7 @@
                 data = JSON.parse(data);
                 $('.result'+data.id).html(data.text);
                 $('.custom'+data.id).html(data.text);
+                $('.close').click();
                 if(data.status){
                     $('.alert-success'+data.id).removeClass('hidden');
                 }else{
@@ -165,6 +187,7 @@
                     send = false;
                 }
             });
+            $('.close').remove();
             if(send){
                 $('form').submit();
             }else{
