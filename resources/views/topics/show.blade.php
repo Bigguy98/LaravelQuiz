@@ -42,7 +42,7 @@
                                     @endif
                                     @if(!empty($question->front_code) && $question->show_front_code || !empty($question->test_code) && $question->show_test_code || !empty($question->config_code) && $question->show_config_code)
                                         <div class="flex">
-                                            <button type="button" data-id="{{$question->id}}" class="btn btn-success run" data-toggle="modal" data-target="#exampleModal">Run the code</button>
+                                            <button type="button" data-id="{{$question->id}}" class="btn btn-success run">Run the code</button>
                                             <div class="alert hidden alert-success{{$question->id}} alert-success">Build success</div>
                                             <div class="alert hidden alert-danger{{$question->id}} alert-danger">Build failure</div>
                                         </div>
@@ -69,6 +69,7 @@
                             @endforeach
                         </div>
                         <input type="button" value="Submit" class="btn btn-primary send mt-3">
+                        <button data-toggle="modal" data-target="#exampleModal" class="final-popup hidden"></button>
                         <br><br>
                     </form>
                 </div>
@@ -170,7 +171,6 @@
                 data = JSON.parse(data);
                 $('.result'+data.id).html(data.text);
                 $('.custom'+data.id).html(data.text);
-                $('.close').click();
                 if(data.status){
                     $('.alert-success'+data.id).removeClass('hidden');
                 }else{
@@ -182,12 +182,13 @@
         clicked = false;
         $(document).on('click','.send',function(){
             send = true;
+            $('.final-popup').click();
+            $('.final-popup').remove();
             $( ".result" ).each(function( index ) {
                 if($( this ).text() == '' || $( this ).text() == 'Executing...'){
                     send = false;
                 }
             });
-            $('.close').remove();
             if(send){
                 $('form').submit();
             }else{
