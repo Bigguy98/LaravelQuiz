@@ -39,7 +39,7 @@ class CodeController extends Controller
         if(isset($fronts[1][0]) && !empty($fronts[1][0])){
             $front_name = trim($fronts[1][0]);
         }else{
-            $text = "Main java file parsing problem (the class name is not defined of corrupted).";
+            $text = "Main java file parsing problem (the class name is not defined or corrupted).";
             goto next;
         }
 
@@ -47,7 +47,7 @@ class CodeController extends Controller
         if(isset($tests[1][0]) && !empty($tests[1][0])){
             $test_name = trim($tests[1][0]);
         }else{
-            $text = "Test java file parsing problem (the class name is not defined of corrupted).";
+            $text = "Test java file parsing problem (the class name is not defined or corrupted).";
             goto next;
         }
 
