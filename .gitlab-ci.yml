@@ -15,4 +15,6 @@ Connect on server-aws and reload app:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ls
     - apt-get update -y || true
-    - ssh ubuntu@quiz.awesomesolutions.fr "ls"
+    - ssh ubuntu@quiz.awesomesolutions.fr "git pull"
+    - ssh ubuntu@quiz.awesomesolutions.fr "composer install"
+    - ssh ubuntu@quiz.awesomesolutions.fr "php artisan migrate"
