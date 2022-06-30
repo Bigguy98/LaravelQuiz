@@ -1,0 +1,18 @@
+stages:
+  - deploy-aws
+
+Connect on server-aws and reload app:
+  image: maven:3.3.9-jdk-8
+  stage: deploy-aws
+  artifacts:
+    paths:
+      - target
+  script:
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$MY_SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ls
+    - apt-get update -y || true
+    - ssh ubuntu@postcodezip.com "ls"
