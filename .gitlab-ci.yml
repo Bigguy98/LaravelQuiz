@@ -15,4 +15,4 @@ Connect on server-aws and reload app:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ls
     - apt-get update -y || true
-    - ssh ubuntu@postcodezip.com "ls"
+    - ssh ubuntu@quiz.awesomesolutions.fr "ls"
