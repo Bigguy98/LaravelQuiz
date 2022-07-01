@@ -35,27 +35,37 @@ class CodeController extends Controller
         $test = $question->show_test_code ? $request->test : $question->test_code;
         $config = $question->show_config_code ? $request->config : $question->config_code;
 
-        preg_match_all('/class (\w+)[\{|\s]/msU', $front, $fronts);
-        if(isset($fronts[1][0]) && !empty($fronts[1][0])){
-            $front_name = trim($fronts[1][0]);
-        }else{
-            $text = "Main java file parsing problem (the class name is not defined or corrupted).";
-            goto next;
+        if(!empty($front)){
+            preg_match_all('/class (\w+)[\{|\s]/msU', $front, $fronts);
+            if(isset($fronts[1][0]) && !empty($fronts[1][0])){
+                $front_name = trim($fronts[1][0]);
+            }else{
+                $text = "Main java file parsing problem (the class name is not defined or corrupted).";
+                goto next;
+            }
         }
 
-        preg_match_all('/class (\w+)[\{|\s]/msU', $test, $tests);
-        if(isset($tests[1][0]) && !empty($tests[1][0])){
-            $test_name = trim($tests[1][0]);
-        }else{
-            $text = "Test java file parsing problem (the class name is not defined or corrupted).";
-            goto next;
+        if(!empty($test)){
+            preg_match_all('/class (\w+)[\{|\s]/msU', $test, $tests);
+            if(isset($tests[1][0]) && !empty($tests[1][0])){
+                $test_name = trim($tests[1][0]);
+            }else{
+                $text = "Test java file parsing problem (the class name is not defined or corrupted).";
+                goto next;
+            }
         }
 
         shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && rm -r *');
 
-        Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/main/java/'.$front_name.'.java', html_entity_decode($front));
-        Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/test/java/'.$test_name.'.java', html_entity_decode($test));
-        Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/pom.xml', html_entity_decode($config));
+        if(!empty($front)){
+            Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/main/java/'.$front_name.'.java', html_entity_decode($front));
+        }
+        if(!empty($test)){
+            Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/src/test/java/'.$test_name.'.java', html_entity_decode($test));
+        }
+        if(!empty($config)){
+            Storage::disk('storage')->put('code/'.$user->id.'/'.$request->id.'/pom.xml', html_entity_decode($config));   
+        }
             
         $text = nl2br(shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && mvn test'));
         
