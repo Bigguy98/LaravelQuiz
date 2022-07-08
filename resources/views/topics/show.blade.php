@@ -69,7 +69,7 @@
                             @endforeach
                         </div>
                         <input type="button" value="Submit" class="btn btn-primary send mt-3">
-                        <button data-toggle="modal" data-target="#exampleModal" class="final-popup hidden" data-backdrop="static" data-keyboard="false"></button>
+                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="final-popup hidden" data-backdrop="static" data-keyboard="false"></button>
                         <br><br>
                     </form>
                 </div>
@@ -190,7 +190,9 @@
                 }
             });
             if(send){
-                $('form').submit();
+                setTimeout(function() {
+                    $('form').submit();
+                }, 1000);
             }else{
                 $(this).attr('value','Executing all code ...');
                 if(!clicked){
