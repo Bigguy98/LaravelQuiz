@@ -26,7 +26,7 @@
                             @foreach($topic->questions as $question )
                                 <div class="question-wrapper">
                                     <span class="question">
-                                        {{$question->question_text}}
+                                        {!!nl2br($question->question_text)!!}
                                     </span>
                                     @if(!empty($question->image))
                                         <img src="{{$question->image}}" alt="" class="img img-responsive img-fluid img-quiz">
