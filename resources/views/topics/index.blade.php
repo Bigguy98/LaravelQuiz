@@ -14,7 +14,7 @@
                     @foreach($topics as $topic)
                         <div class="card">
                             <div class="card-body mb-2">
-                                <h5 class="card-title">{{$topic->title}}</h5>
+                                <h5 class="card-title">{!!$topic->title!!}</h5>
                                 <a href="{{route('topics.show', $topic->id)}}" class="inline_block btn btn-primary">Start Quiz</a>
                                 @if(Auth::user())
                                     @if(Auth::user()->role == 'admin')
@@ -37,7 +37,7 @@
                     @foreach($interviews as $topic)
                         <div class="card">
                             <div class="card-body mb-2">
-                                <h5 class="card-title">{{$topic->title}}</h5>
+                                <h5 class="card-title">{!!$topic->title!!}</h5>
                                 <a href="{{route('topics.show', $topic->id)}}" class="inline_block btn btn-primary">Start Interview</a>
                                 @if(Auth::user())
                                     @if(Auth::user()->role == 'admin')
