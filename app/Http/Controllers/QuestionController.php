@@ -205,6 +205,7 @@ class QuestionController extends Controller
         $show_config = $request->input('show_config') == "on" ? true : false;
 
         $question = Question::find($id);
+        $question->topic_id = $topicID;
         $question->question_text = $questionText;
         $question->image = $image;
         $question->front_code = $front;
