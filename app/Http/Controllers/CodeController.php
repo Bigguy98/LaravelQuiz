@@ -55,6 +55,7 @@ class CodeController extends Controller
             }
         }
 
+        shell_exec('Xvfb :99 && export DISPLAY=:99');
         shell_exec('cd '.storage_path().'/code/'.$user->id.'/'.$request->id.'/ && rm -r *');
 
         if(!empty($front)){
