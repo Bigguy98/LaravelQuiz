@@ -14,3 +14,4 @@ yarn-error.log
 !/storage/code/**/
 !/storage/code/src/main/java/**/.gitkeep
 !/storage/code/src/test/java/**/.gitkeep
+package-lock.json
